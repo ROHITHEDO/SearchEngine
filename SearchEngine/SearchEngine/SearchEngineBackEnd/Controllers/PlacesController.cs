@@ -16,15 +16,16 @@ public class PlacesController : ControllerBase
     private readonly IConfiguration configuration;
     public PlacesController(IHttpClientFactory httpClientFactory, HttpClient httpClient, IConfiguration configuration)
     {
-
+        var tomTomApiKey = configuration.GetSection("TomTomApiKey").Value;
+        var openCageApiKey = configuration.GetSection("OpenCageApiKey").Value;
         _httpClientFactory = httpClientFactory;
-        _tomtomApiKey = "khMZiD1UXiU7zcQqQnvKlAarGCLc4GOh"; // Replace with your TomTom API key
-        _opencageApiKey = "0c0da2e767b44e3eb0c0ab9f9023e54a"; // Replace with your OpenCage API key
+        _tomtomApiKey = tomTomApiKey; // Replace with your TomTom API key
+        _opencageApiKey = openCageApiKey;  // Replace with your OpenCage API key
         _httpClient = httpClient;
         this.configuration = configuration;
     }
 
-    //[ProducesResponseType()]
+  
     [HttpGet("{placeType}/{locationName}")]
     public async Task<IActionResult> GetPlaces(string placeType, string locationName)
     {
@@ -83,7 +84,48 @@ public class PlacesController : ControllerBase
         }
         return BadRequest("Error fetching places from the API");
     }
-    
+    [HttpGet("News")]
+
+    public async Task<IActionResult> DailyNews(string location)
+    {
+        var Newsapikey = configuration.GetSection("NewsapiKey").Value;
+        var apiKey = Newsapikey;
+        var client = _httpClientFactory.CreateClient();
+        var date = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd");
+        string endpoint = $"https://gnews.io/api/v4/search?q={location}&apikey={apiKey}";
+        var response = await client.GetAsync(endpoint);
+
+        if (response.IsSuccessStatusCode)
+        {
+
+            string responsebody = await response.Content.ReadAsStringAsync();
+            var news = JObject.Parse(responsebody);
+            if (news["articles"] is JArray resultsArray)
+            {
+                var data = new List<News>();
+
+                foreach (var result in resultsArray)
+                {
+                    var title = result["title"].ToString();
+                    var description = result["description"].ToString();
+                    var image = result["image"].ToString();
+                    var url = result["url"].ToString();
+                    data.Add(new News
+                    {
+                        title = title,
+                        description = description,
+                        image = image,
+                        url = url
+                    }); ;
+                }
+                return Ok(data);
+            }
+
+
+        }
+        return BadRequest("there is some error ");
+    }
+
 
 
 
