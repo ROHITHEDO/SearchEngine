@@ -38,6 +38,15 @@ namespace CafeSearchBackEnd.Models
         public string Address { get; set; }
 
     }
-   
+    public class News
+    {
+        public string title { get; set; }
+
+        public string description { get; set; }
+
+        public string image { get; set; }
+
+        public string url { get; set; }
+    }
 
 }

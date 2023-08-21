@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "dD+PTEPm/YzibADXkdsLr7MA/6Frnl8iPHXL9JN3HlQ=",
-  "Source": "CafeSearchBackEnd",
-  "BasePath": "_content/CafeSearchBackEnd",
+  "Hash": "AQsSU1zr08XAinpSnvLoZGuU9Iz9dBMQXdEr2dEy+As=",
+  "Source": "SearchEngineBackEnd",
+  "BasePath": "_content/SearchEngineBackEnd",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
