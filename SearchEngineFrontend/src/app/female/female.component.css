@@ -1,0 +1,13 @@
+.custom-button {
+    background: linear-gradient(to right, black 50%, gray 50%);
+    background-size: 200% 100%; /* Twice as wide as needed */
+    background-position: right bottom;
+    transition: background-position 0.3s ease, color 0.3s ease;
+    color: white;
+    border:none
+  }
+  
+  .custom-button:hover {
+    background-position: left bottom;
+    color: white; /* Change the text color on hover if needed */
+  }

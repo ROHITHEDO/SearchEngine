@@ -1,0 +1,22 @@
+<div class="center-container" [style.background-Image]="backgroundImageUrl">
+       <div *ngIf="Exercise.length>0" [@slideDown] >
+        <div style="margin-left: 100px;margin-right:100px;margin-top:5px;width:400px;background-color: transparent; border:2px solid white;overflow:auto;height: 450px;">
+            <div  *ngFor="let data of  Exercise"style="padding: 10px;">
+                <div style="display: flex;align-items: center; background-color:aliceblue;">
+                    <div style="flex:1;padding: 10px;">
+                        <strong> Name:</strong> {{data.name}}<br>
+                        <strong> Difficulty:</strong> {{data.difficulty}}<br>
+                        <strong> Equipment:</strong> {{data.equipment}}<br>
+                        <!-- <strong> Instruction:</strong> {{data.instructions}}<br><br> -->
+                    </div>
+
+                </div>
+            
+            </div>
+            <button type="button" class="btn btn-primary mx-2 mb-2 custom-button" (click)="GoBack()">Back</button>  
+        </div>
+       </div>
+       
+    </div>
+
+

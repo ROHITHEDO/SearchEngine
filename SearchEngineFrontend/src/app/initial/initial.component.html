@@ -1,0 +1,42 @@
+
+<div  class="center-container" [style.backgroundImage]="backgroundImageUrl">
+    <form [formGroup]="searchForm" class="example-form"  (ngSubmit)="onSubmit(searchForm.value)" *ngIf="submitted==false">
+      <mat-form-field class="example-full-width">
+        <mat-label>Enter Your Location</mat-label>
+        <input matInput placeholder="Ex. Chandigarh" formControlName="locationName">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Where you want to Go?</mat-label>
+        <input matInput placeholder="Ex. Cafee" formControlName="placeType" required>
+      </mat-form-field>
+      <div id="my-button-container" class="example-button-row">
+        <button mat-raised-button id="mybtn" color="primary" [disabled]="searchForm.invalid" type="submit" >Search</button>
+      </div>
+     
+    </form>
+    <div [@slideDown] *ngIf="displaydata == true && backgroundContentVisible == true" style="background-color:transparent;border:2px solid lightblue; height: 80%; overflow: auto; padding: 10px;">
+      <div *ngIf="places.length > 0">
+        <button class="btn btn-warning" *ngIf="clicked == true && displayLuckButton == true;" (click)="RandomPlace()" style="color: red; margin-left: 35%; font-weight: bolder;">Wants to try your Luck??</button>
+
+        <div *ngFor="let place of places" style=" background-color:white;padding: 10px; margin-top: 10px;">
+          <div style="display: flex; align-items: center;">
+            <div style="flex: 1;" >
+              <strong>Name:</strong> {{ place.name }}<br>
+              <strong>Address:</strong> {{ place.address }}<br>
+            </div>
+          </div>
+        </div>
+        
+        <button class="btn btn-primary mt-2 custom-button" (click)="GoBack()">Back</button>
+      </div>
+    </div>
+    
+  <div id="modal" class="modal-container" *ngIf="showModal"  style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 20px; border-radius: 5px;">
+    <div id="modal-content">
+      <h2>Congratulations! Your Lucky Place:</h2>
+      <p><strong>Name:</strong> {{ luckyPlace.name }}</p>
+      <p><strong>Address:</strong> {{ luckyPlace.address }}</p>
+      <button class="btn btn-primary custom-button" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+  </div>

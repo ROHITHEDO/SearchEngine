@@ -1,0 +1,13 @@
+<div style="background-color:antiquewhite;margin-left:20%;margin-right: 20%;margin-top:2%">
+    <div>
+        <h1 style="font-weight:bolder; text-align: center; color:red"> Things To Remember</h1>
+        <mat-selection-list #shoes>
+            <mat-list-option *ngFor="let value of maleTravelEssentials">
+              {{value.name}}
+            </mat-list-option>
+          </mat-selection-list>
+
+         
+    </div>
+    <button type="button" class="btn btn-primary mx-3 custom-button" (click)="GoBack()">Back</button>
+</div>

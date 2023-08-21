@@ -1,0 +1,43 @@
+<div class="firstcontainer" style="background-color:rgb(66, 66, 66); display: flex; align-items: center; justify-content: space-between; padding: 10px;">
+
+  <h2 style="margin: 0; font-weight:bolder;color:grey;font-size: 50px;">Search</h2>
+
+  <div style="display: flex; align-items: center;">
+    <mat-form-field style="margin: 5px;">
+      <mat-label>Choose any one</mat-label>
+      <mat-select [(ngModel)]="selectedOption" (selectionChange)="navigateToOption(selectedOption)">
+        <mat-option *ngFor="let ex of choose" [value]="ex.value">
+          {{ex.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field style="margin: 5px;" *ngIf="selectedOption === 'exercise'">
+      <mat-label>Choose Muscles Exercise</mat-label>
+      <mat-select (selectionChange)="onExerciseSelected($event.value)">
+        <mat-option *ngFor="let ex of exercises" [value]="ex.value">
+          {{ex.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Choose your Gender</h4>
+      </div>
+      <div class="modal-body">
+        <button class="btn btn-info" (click)="selectGender('male')">Male</button><br><br>
+        <button class="btn btn-info" (click)="selectGender('female')">Female</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closePopup()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
