@@ -1,0 +1,44 @@
+<div class="wrapper" [style.background-image]="backgroundImageUrl">
+  <button  class="btn btn-primary mt-2 mx-2  custom-button " *ngIf="display==false" (click)="GoBack()">Back</button>
+  <div style="text-align: center; ">
+     <div >
+      <form [formGroup]="searchForm" class="example-form" *ngIf="display==true" (ngSubmit)="onSubmit(searchForm.value)">
+        <div>
+          <mat-form-field class="example-full-width mt-5">
+            <mat-label>Recent news of which Place </mat-label>
+            <input matInput placeholder="Ex. Chandigarh" formControlName="name">
+          </mat-form-field>
+          <div id="my-button-container" class="example-button-row">
+            <button  class="btn btn-primary  custom-button"  [disabled]="searchForm.invalid" type="submit" >Search</button>
+          </div> 
+        </div>
+        </form>
+     </div>
+     <ngb-carousel (slide)="slideActivate($event)">
+      <ng-template *ngFor="let item of data" ngbSlide>
+        <div class="picsum-img-wrapper">
+          <div class="carousel-content ">
+              <h3 style="color: whitesmoke;">{{item.title}}</h3>
+              <p style="color: whitesmoke;">{{item.description}}</p>
+               <button type="button"  class="btn  btn-warning mt-3" (click)="openUrl(item.url)">Read More</button>
+               <div *ngIf="selectedNewsUrl !== null">
+                  <a [href]="selectedNewsUrl" target="_blank">Go to link</a>
+                
+               </div>
+              </div>
+           
+          <img [src]="item.image" alt="News Image" />
+          
+         
+        </div>
+      </ng-template>
+    </ngb-carousel>
+     </div>
+     
+       
+        
+     
+        
+        
+        
+</div>
