@@ -125,6 +125,41 @@ public class PlacesController : ControllerBase
         }
         return BadRequest("there is some error ");
     }
+    [HttpGet("Exercise")]
+    public async Task<IActionResult> GetExercisesAsync(string name)
+    {
+
+        var exerciseApiKey = configuration.GetSection("ExerciseApiKey").Value;
+        string apiKey = exerciseApiKey; // Replace with your actual API key
+
+        var client = _httpClientFactory.CreateClient();
+        client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
+
+        string apiEndpoint = $"https://api.api-ninjas.com/v1/exercises?muscle={name}";
+        HttpResponseMessage response = await client.GetAsync(apiEndpoint);
+
+        if (response.IsSuccessStatusCode)
+        {
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+            var exercises = JsonConvert.DeserializeObject<List<Exercise>>(responseBody);
+
+            var simplifiedExercises = exercises.Select(e => new
+            {
+                e.name,
+                e.difficulty,
+                e.equipment,
+                e.instructions
+            }).ToList();
+
+            return Ok(simplifiedExercises);
+        }
+        else
+        {
+            return BadRequest("there is some error");
+        }
+
+    }
 
 
 

@@ -49,4 +49,13 @@ namespace CafeSearchBackEnd.Models
         public string url { get; set; }
     }
 
+    public class Exercise
+    {
+        public string name { get; set; }
+        public string equipment { get; set; }
+        public string difficulty { get; set; }
+        public string instructions { get; set; }
+
+    }
+
 }
